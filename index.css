@@ -1,3 +1,4 @@
+
 :root {
   --color-cream-50: rgba(252, 252, 249, 1);
   --color-cream-100: rgba(255, 255, 253, 1);
@@ -58,28 +59,25 @@ body {
   color: var(--color-text);
   padding: 24px;
   line-height: 1.6;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
+  /* ИСПРАВЛЕНИЕ: Разрешаем скролл страницы */
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  height: 100vh;
+  /* ИСПРАВЛЕНИЕ: Убираем фиксированную высоту */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 header {
-  margin-bottom: 0;
+  margin-bottom: 32px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-border);
-  flex-shrink: 0;
 }
 
 h1 {
@@ -91,17 +89,16 @@ h1 {
 
 .subtitle {
   color: var(--color-text-secondary);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .filters {
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
   box-shadow: var(--shadow-sm);
-  flex-shrink: 0;
 }
 
 .filter-grid {
@@ -131,6 +128,7 @@ select, input {
   font-size: 14px;
   font-family: var(--font-family-base);
   transition: border-color 0.2s;
+  width: 100%;
 }
 
 select:focus, input:focus {
@@ -142,15 +140,14 @@ select:focus, input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 16px;
-  margin-bottom: 12px;
-  flex-shrink: 0;
+  margin-bottom: 24px;
 }
 
 .stat-card {
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
-  padding: 14px;
+  padding: 16px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -178,18 +175,15 @@ select:focus, input:focus {
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
   box-shadow: var(--shadow-sm);
-  flex: 0 0 auto;
-  max-height: 280px;
-  overflow-y: auto;
 }
 
 .chart-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   color: var(--color-text);
 }
 
@@ -204,17 +198,16 @@ select:focus, input:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   min-height: 36px;
 }
 
 .bar-label {
-  min-width: 140px;
-  max-width: 35%;
-  font-size: 12px;
+  min-width: 160px;
+  width: 30%;
+  font-size: 13px;
   color: var(--color-text);
-  flex-shrink: 0;
   word-wrap: break-word;
 }
 
@@ -225,7 +218,6 @@ select:focus, input:focus {
   background: var(--color-secondary);
   border-radius: 6px;
   overflow: hidden;
-  min-width: 50px;
 }
 
 .bar-fill {
@@ -236,8 +228,8 @@ select:focus, input:focus {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 6px;
-  min-width: 25px;
+  padding-right: 8px;
+  min-width: 30px;
 }
 
 .bar-value {
@@ -251,23 +243,14 @@ select:focus, input:focus {
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 24px;
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  margin-bottom: 24px;
 }
 
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  display: block;
-  flex: 1;
-  min-height: 0;
 }
 
 table {
@@ -284,10 +267,6 @@ thead th {
   color: var(--color-text);
   border-bottom: 2px solid var(--color-border);
   white-space: nowrap;
-  position: sticky;
-  top: 0;
-  background: var(--color-surface);
-  z-index: 10;
 }
 
 tbody td {
@@ -301,16 +280,14 @@ tbody tr:hover {
   background: var(--color-secondary);
 }
 
-.mobile-card-row {
-  display: none;
-}
-
+/* Стили для бейджей статусов */
 .severity-badge {
   display: inline-block;
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .severity-high {
@@ -337,476 +314,98 @@ tbody tr:hover {
   color: var(--color-text-secondary);
 }
 
-/* Фиксированная ширина для мобильных таблиц */
-@supports (display: grid) {
-  @media (max-width: 768px) {
-      .table-container {
-          border-radius: 8px;
-      }
-  }
+/* Стили для мобильных карточек (скрыты по умолчанию) */
+.mobile-card-row {
+  display: none;
 }
 
-/* Улучшение тач-взаимодействия */
-@media (hover: none) and (pointer: coarse) {
-  select, input, button {
-      min-height: 44px;
-      min-width: 44px;
-  }
-
-  tbody tr:hover {
-      background: inherit;
-  }
-
-  tbody tr:active {
-      background: var(--color-secondary);
-  }
-}
-
-/* Планшеты и экраны 1024px-1400px */
-@media (max-width: 1024px) {
-  .container {
-      max-width: 100%;
-      padding: 0 12px;
-  }
-
-  .filter-grid {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-
-  .bar-label {
-      min-width: 160px;
-  }
-}
-
-/* Экраны 768px-1024px (планшеты в портрете) */
+/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   body {
-      padding: 12px;
+    padding: 16px;
   }
 
-  h1 {
-      font-size: 22px;
-      margin-bottom: 4px;
-  }
-
-  .subtitle {
-      font-size: 13px;
-      margin-bottom: 16px;
-  }
-
-  .filters {
-      padding: 16px;
-      margin-bottom: 16px;
-  }
-
-  .filter-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-  }
-
-  .filter-group {
-      gap: 6px;
-  }
-
-  label {
-      font-size: 12px;
-  }
-
-  select, input {
-      padding: 9px 10px;
-      font-size: 13px;
+  .container {
+    padding-bottom: 20px;
   }
 
   .stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-  }
-
-  .stat-card {
-      padding: 14px;
-  }
-
-  .stat-label {
-      font-size: 11px;
-      margin-bottom: 6px;
-  }
-
-  .stat-value {
-      font-size: 24px;
-  }
-
-  .stat-unit {
-      font-size: 14px;
-  }
-
-  .chart-container {
-      padding: 16px;
-      margin-bottom: 16px;
-      overflow: visible;
-  }
-
-  .chart-title {
-      font-size: 16px;
-      margin-bottom: 16px;
-      word-wrap: break-word;
-  }
-
-  .bar-chart {
-      width: 100%;
+    grid-template-columns: 1fr 1fr;
   }
 
   .bar-item {
-      gap: 10px;
-      width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    height: auto;
+    margin-bottom: 12px;
   }
 
   .bar-label {
-      min-width: 100px;
-      max-width: 50%;
-      font-size: 11px;
+    width: 100%;
+    margin-bottom: 4px;
   }
 
   .bar-wrapper {
-      height: 26px;
-      flex: 1;
-      min-width: 50px;
+    width: 100%;
   }
 
-  .bar-value {
-      font-size: 10px;
-      padding-right: 4px;
+  /* Скрываем обычную таблицу на мобильных */
+  .table-wrapper {
+    display: none;
   }
 
-  .table-container {
-      padding: 16px;
-      margin-bottom: 16px;
+  /* Показываем карточки на мобильных */
+  #mobileCardView {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  /* Горизонтальный скролл для таблицы */
-  table {
-      font-size: 12px;
-      display: block;
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
+  .mobile-card-row {
+    display: block;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    padding: 16px;
   }
 
-  thead {
-      display: block;
+  .card-row-header {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-card-border);
+    color: var(--color-text);
   }
 
-  thead th {
-      padding: 10px 8px;
-      font-size: 11px;
-      min-width: 120px;
-      display: inline-block;
+  .card-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 13px;
   }
 
-  tbody {
-      display: block;
-      overflow-x: auto;
+  .card-row-label {
+    color: var(--color-text-secondary);
+    margin-right: 12px;
+    min-width: 100px;
   }
 
-  tbody tr {
-      display: flex;
-      overflow-x: auto;
-      white-space: normal;
-  }
-
-  tbody td {
-      padding: 10px 8px;
-      font-size: 11px;
-      min-width: 120px;
-      display: inline-block;
-      flex-shrink: 0;
-  }
-
-  .severity-badge {
-      padding: 3px 8px;
-      font-size: 10px;
+  .card-row-value {
+    color: var(--color-text);
+    text-align: right;
+    flex: 1;
   }
 }
 
-/* Маленькие смартфоны 480px-768px */
 @media (max-width: 480px) {
-  body {
-      padding: 8px;
-      width: 100%;
-      overflow-x: hidden;
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 
   h1 {
-      font-size: 18px;
-      margin-bottom: 4px;
-  }
-
-  .subtitle {
-      font-size: 12px;
-      margin-bottom: 12px;
-  }
-
-  .filters {
-      padding: 12px;
-      margin-bottom: 12px;
-  }
-
-  .filter-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
-  }
-
-  label {
-      font-size: 11px;
-  }
-
-  select, input {
-      padding: 8px 8px;
-      font-size: 12px;
-  }
-
-  .stats-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
-  }
-
-  .stat-card {
-      padding: 12px;
-  }
-
-  .stat-label {
-      font-size: 10px;
-      margin-bottom: 4px;
-  }
-
-  .stat-value {
-      font-size: 20px;
-  }
-
-  .stat-unit {
-      font-size: 12px;
-  }
-
-  .chart-container {
-      padding: 12px;
-      margin-bottom: 12px;
-      width: 100%;
-      overflow: visible;
-  }
-
-  .chart-title {
-      font-size: 14px;
-      margin-bottom: 12px;
-      word-wrap: break-word;
-  }
-
-  .bar-chart {
-      gap: 12px;
-      width: 100%;
-  }
-
-  .bar-item {
-      gap: 8px;
-      flex-direction: row;
-      width: 100%;
-  }
-
-  .bar-label {
-      min-width: 80px;
-      max-width: 35%;
-      font-size: 10px;
-      flex-shrink: 0;
-      word-wrap: break-word;
-  }
-
-  .bar-wrapper {
-      flex: 1;
-      height: 24px;
-      min-width: 40px;
-  }
-
-  .bar-value {
-      font-size: 9px;
-      padding-right: 3px;
-  }
-
-  .table-container {
-      padding: 12px;
-      margin-bottom: 12px;
-      width: 100%;
-      overflow: hidden;
-  }
-
-  .table-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: visible;
-      -webkit-overflow-scrolling: touch;
-      display: block;
-  }
-
-  table {
-      display: table;
-      width: 100%;
-      table-layout: auto;
-  }
-
-  thead th {
-      padding: 8px 6px;
-      font-size: 10px;
-      min-width: 90px;
-  }
-
-  tbody td {
-      padding: 8px 6px;
-      font-size: 9px;
-      min-width: 90px;
-  }
-
-  .mobile-card-row {
-      display: none;
-  }
-
-  .severity-badge {
-      padding: 2px 6px;
-      font-size: 9px;
-  }
-}
-
-/* Совсем маленькие экраны < 360px */
-@media (max-width: 360px) {
-  body {
-      padding: 6px;
-      width: 100%;
-      overflow-x: hidden;
-  }
-
-  h1 {
-      font-size: 16px;
-      margin-bottom: 2px;
-  }
-
-  .subtitle {
-      font-size: 11px;
-      line-height: 1.3;
-  }
-
-  .filters {
-      padding: 10px;
-      margin-bottom: 10px;
-  }
-
-  .filter-grid {
-      gap: 8px;
-  }
-
-  label {
-      font-size: 10px;
-  }
-
-  select, input {
-      padding: 6px;
-      font-size: 11px;
-  }
-
-  .stats-grid {
-      gap: 8px;
-  }
-
-  .stat-card {
-      padding: 10px;
-  }
-
-  .stat-label {
-      font-size: 9px;
-  }
-
-  .stat-value {
-      font-size: 18px;
-  }
-
-  .stat-unit {
-      font-size: 10px;
-  }
-
-  .chart-container {
-      padding: 10px;
-      margin-bottom: 10px;
-      width: 100%;
-      overflow: visible;
-  }
-
-  .chart-title {
-      font-size: 13px;
-      margin-bottom: 10px;
-      word-wrap: break-word;
-  }
-
-  .bar-chart {
-      width: 100%;
-  }
-
-  .bar-item {
-      flex-direction: row;
-      width: 100%;
-  }
-
-  .bar-label {
-      min-width: 70px;
-      max-width: 35%;
-      font-size: 9px;
-      flex-shrink: 0;
-      word-wrap: break-word;
-  }
-
-  .bar-wrapper {
-      flex: 1;
-      height: 20px;
-      min-width: 35px;
-  }
-
-  .bar-value {
-      font-size: 8px;
-      padding-right: 2px;
-  }
-
-  .table-container {
-      padding: 10px;
-      width: 100%;
-      overflow: hidden;
-  }
-
-  .table-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: visible;
-      -webkit-overflow-scrolling: touch;
-      display: block;
-  }
-
-  table {
-      display: table;
-      width: 100%;
-      table-layout: auto;
-  }
-
-  thead th {
-      padding: 6px 4px;
-      font-size: 8px;
-      min-width: 80px;
-  }
-
-  tbody td {
-      padding: 6px 4px;
-      font-size: 8px;
-      min-width: 80px;
-  }
-
-  .mobile-card-row {
-      display: none;
-  }
-
-  .severity-badge {
-      padding: 2px 4px;
-      font-size: 8px;
+    font-size: 20px;
   }
 }
