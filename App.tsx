@@ -5,7 +5,7 @@ import FilterBar from './components/FilterBar';
 import StatsGrid from './components/StatsGrid';
 import DistributionChart from './components/DistributionChart';
 import ViolationTable from './components/ViolationTable';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 const App: React.FC = () => {
   // State for filters
@@ -46,53 +46,56 @@ const App: React.FC = () => {
   }, [filteredViolations]);
 
   return (
-    <div className="min-h-screen flex flex-col max-w-[1400px] mx-auto px-4 sm:px-6 py-6 font-sans text-slate-900">
-      
-      {/* Header */}
-      <header className="mb-8 border-b border-stone-200 pb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-teal-600 rounded-lg shadow-sm">
-            <ShieldAlert className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-slate-50 pb-12">
+      {/* Header Section with Gradient Background */}
+      <div className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="p-2.5 bg-teal-600 rounded-xl shadow-lg shadow-teal-600/20">
+              <ShieldCheck className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                Анализ штрафов ФАС в event-сфере
+              </h1>
+              <p className="text-slate-500 text-sm mt-1">
+                Мониторинг нарушений антимонопольного законодательства
+              </p>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Анализ штрафов ФАС в event-сфере
-          </h1>
-        </div>
-        <p className="text-slate-500 max-w-2xl text-sm leading-relaxed pl-[52px]">
-          Мониторинг и аналитика нарушений антимонопольного законодательства при организации мероприятий, проведении торгов и закупок.
-        </p>
-      </header>
-
-      {/* Main Controls */}
-      <FilterBar 
-        type={filterType}
-        severity={filterSeverity}
-        entity={filterEntity}
-        search={searchQuery}
-        onTypeChange={setFilterType}
-        onSeverityChange={setFilterSeverity}
-        onEntityChange={setFilterEntity}
-        onSearchChange={setSearchQuery}
-      />
-
-      {/* Stats Dashboard */}
-      <StatsGrid stats={stats} />
-
-      {/* Content Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 flex-1 min-h-0">
-        {/* Chart Column */}
-        <div className="lg:col-span-1">
-          <DistributionChart data={filteredViolations} />
-        </div>
-        
-        {/* Table Column */}
-        <div className="lg:col-span-2 flex flex-col min-h-[500px] lg:min-h-0">
-          <ViolationTable data={filteredViolations} />
         </div>
       </div>
 
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 space-y-6">
+        {/* Main Controls */}
+        <FilterBar 
+          type={filterType}
+          severity={filterSeverity}
+          entity={filterEntity}
+          search={searchQuery}
+          onTypeChange={setFilterType}
+          onSeverityChange={setFilterSeverity}
+          onEntityChange={setFilterEntity}
+          onSearchChange={setSearchQuery}
+        />
+
+        {/* Stats Dashboard */}
+        <StatsGrid stats={stats} />
+
+        {/* Content Area - Grid Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+          {/* Chart Column - Takes 1/3 on large screens */}
+          <div className="xl:col-span-1 w-full">
+            <DistributionChart data={filteredViolations} />
+          </div>
+          
+          {/* Table Column - Takes 2/3 on large screens */}
+          <div className="xl:col-span-2 w-full">
+            <ViolationTable data={filteredViolations} />
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
-
 export default App;
