@@ -1,0 +1,5 @@
+{
+  "name": "FAS Event Fines Analytics",
+  "description": "Analytical dashboard monitoring antitrust violations and fines in the event management sector.",
+  "requestFramePermissions": []
+}
