@@ -5,16 +5,14 @@ import FilterBar from './components/FilterBar';
 import StatsGrid from './components/StatsGrid';
 import DistributionChart from './components/DistributionChart';
 import ViolationTable from './components/ViolationTable';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, BarChart3, LayoutDashboard } from 'lucide-react';
 
 const App: React.FC = () => {
-  // State for filters
   const [filterType, setFilterType] = useState('all');
   const [filterSeverity, setFilterSeverity] = useState('all');
   const [filterEntity, setFilterEntity] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter Logic
   const filteredViolations: Violation[] = useMemo(() => {
     return VIOLATIONS_DATA.filter((v) => {
       const matchType = filterType === 'all' || v.type === filterType;
@@ -30,7 +28,6 @@ const App: React.FC = () => {
     });
   }, [filterType, filterSeverity, filterEntity, searchQuery]);
 
-  // Stats Calculation
   const stats: Stats = useMemo(() => {
     const totalCases = filteredViolations.length;
     if (totalCases === 0) {
@@ -46,28 +43,40 @@ const App: React.FC = () => {
   }, [filteredViolations]);
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-12">
-      {/* Header Section with Gradient Background */}
-      <div className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="p-2.5 bg-teal-600 rounded-xl shadow-lg shadow-teal-600/20">
-              <ShieldCheck className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-[#F8FAFC] pb-12 font-sans text-slate-900">
+      {/* Header */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <div className="p-2 bg-teal-600 rounded-lg shadow-lg shadow-teal-600/20 text-white">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold tracking-tight text-slate-900 leading-tight">
+                  Анализ штрафов ФАС
+                </h1>
+                <p className="text-sm text-slate-500 font-medium">
+                  Event-индустрия
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                Анализ штрафов ФАС в event-сфере
-              </h1>
-              <p className="text-slate-500 text-sm mt-1">
-                Мониторинг нарушений антимонопольного законодательства
-              </p>
+            
+            <div className="flex items-center gap-6 text-sm font-medium text-slate-500 w-full md:w-auto justify-end hidden sm:flex">
+               <div className="flex items-center gap-2">
+                 <LayoutDashboard className="w-4 h-4" />
+                 <span>Мониторинг</span>
+               </div>
+               <div className="flex items-center gap-2 text-teal-600 bg-teal-50 px-3 py-1.5 rounded-full">
+                 <BarChart3 className="w-4 h-4" />
+                 <span>Аналитика</span>
+               </div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 space-y-6">
-        {/* Main Controls */}
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 space-y-6">
         <FilterBar 
           type={filterType}
           severity={filterSeverity}
@@ -79,18 +88,14 @@ const App: React.FC = () => {
           onSearchChange={setSearchQuery}
         />
 
-        {/* Stats Dashboard */}
         <StatsGrid stats={stats} />
 
-        {/* Content Area - Grid Layout */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
-          {/* Chart Column - Takes 1/3 on large screens */}
-          <div className="xl:col-span-1 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+          <div className="xl:col-span-4 w-full">
             <DistributionChart data={filteredViolations} />
           </div>
           
-          {/* Table Column - Takes 2/3 on large screens */}
-          <div className="xl:col-span-2 w-full">
+          <div className="xl:col-span-8 w-full">
             <ViolationTable data={filteredViolations} />
           </div>
         </div>
@@ -98,4 +103,5 @@ const App: React.FC = () => {
     </div>
   );
 };
+
 export default App;
