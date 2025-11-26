@@ -52,39 +52,39 @@ const ViolationTable: React.FC<ViolationTableProps> = ({ data }) => {
       
       {/* Mobile Card View (Styled via CSS display properties) */}
       <div id="mobileCardView">
-          {data.map((row, idx) => (
-              <div key={idx} className="mobile-card-row">
-                  <div className="card-row-header">{row.name}</div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Тип:</span>
-                      <span className="card-row-value">{TYPE_LABELS[row.type]}</span>
-                  </div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Субъект:</span>
-                      <span className="card-row-value">{ENTITY_LABELS[row.entity]}</span>
-                  </div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Статья:</span>
-                      <span className="card-row-value">{row.article}</span>
-                  </div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Штраф (ЮЛ):</span>
-                      <span className="card-row-value">{row.fineLegal}</span>
-                  </div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Штраф (ДЛ):</span>
-                      <span className="card-row-value">{row.fineOfficial}</span>
-                  </div>
-                  <div className="card-row-item">
-                      <span className="card-row-label">Степень:</span>
-                      <span className="card-row-value">
-                        <span className={`severity-badge severity-${row.severity}`}>
-                           {SEVERITY_LABELS[row.severity]}
-                        </span>
-                      </span>
-                  </div>
-              </div>
-          ))}
+        {data.map((row, idx) => (
+          <div key={idx} className="mobile-card-row">
+            <div className="card-row-header">{row.name}</div>
+            <div className="card-row-item">
+              <span className="card-row-label">Тип:</span>
+              <span className="card-row-value">{TYPE_LABELS[row.type]}</span>
+            </div>
+            <div className="card-row-item">
+              <span className="card-row-label">Субъект:</span>
+              <span className="card-row-value">{ENTITY_LABELS[row.entity]}</span>
+            </div>
+            <div className="card-row-item">
+              <span className="card-row-label">Статья:</span>
+              <span className="card-row-value">{row.article}</span>
+            </div>
+            <div className="card-row-item">
+              <span className="card-row-label">Штраф (ЮЛ):</span>
+              <span className="card-row-value">{row.fineLegal}</span>
+            </div>
+            <div className="card-row-item">
+              <span className="card-row-label">Штраф (ДЛ):</span>
+              <span className="card-row-value">{row.fineOfficial}</span>
+            </div>
+            <div className="card-row-item">
+              <span className="card-row-label">Степень:</span>
+              <span className="card-row-value">
+                <span className={`severity-badge severity-${row.severity}`}>
+                  {SEVERITY_LABELS[row.severity]}
+                </span>
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
